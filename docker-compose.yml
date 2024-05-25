@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  odoo:
+    image: odoo:latest
+    ports:
+      - "8069:8069"
+    volumes:
+      - odoo_data:/var/lib/odoo
+      - ./custom_addons:/mnt/extra-addons
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - ADMIN_PASSWORD=tu_contraseña
+
+
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+
+volumes:
+  odoo_data:
